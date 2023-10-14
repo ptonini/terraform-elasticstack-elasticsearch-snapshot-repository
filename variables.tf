@@ -19,9 +19,7 @@ variable "lifecycle_policies" {
     indices              = optional(set(string), ["*"])
     ignore_unavailable   = optional(bool, false)
     include_global_state = optional(bool, false)
-    snapshot_retention = optional(object({
-      expire_after = optional(string, "90d")
-    }), {})
+    expire_after         = optional(string, "90d")
   }))
   default = {}
 }
