@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    elasticsearch = {
+    elasticstack = {
       source  = "elastic/elasticstack"
       version = ">= 0.9.0"
     }
