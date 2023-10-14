@@ -22,5 +22,6 @@ variable "lifecycle_policies" {
     snapshot_retention = optional(object({
       expire_after = optional(string, "90d")
     }), {})
-  }), {})
+  }))
+  default = {}
 }
