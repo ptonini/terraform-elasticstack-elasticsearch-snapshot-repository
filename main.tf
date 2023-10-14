@@ -10,14 +10,14 @@ resource "elasticstack_elasticsearch_snapshot_repository" "this" {
   }
 }
 
-resource "elasticsearch_xpack_snapshot_lifecycle_policy" "this" {
-  for_each = var.policies
-  name     = each.key
-  body = jsonencode({
-    repository = elasticstack_elasticsearch_snapshot_repository.this.name
-    schedule   = each.value.snapshot_schedule
-    name       = each.value.snapshot_name
-    config     = each.value.snapshot_config
-    retention  = each.value.snapshot_retention
-  })
+resource "elasticstack_elasticsearch_snapshot_lifecycle" "this" {
+  for_each             = var.lifecycle_policies
+  name                 = each.key
+  repository           = elasticstack_elasticsearch_snapshot_repository.this.name
+  schedule             = each.value.schedule
+  snapshot_name        = each.value.snapshot_name
+  ignore_unavailable   = each.value.ignore_unavailable
+  include_global_state = each.value.include_global_state
+  indices              = each.value.indices
+  expire_after         = each.value.expire_after
 }
