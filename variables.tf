@@ -1,14 +1,13 @@
 variable "name" {}
 
-variable "type" {
-  default = "s3"
-}
+variable "type" {}
 
 variable "settings" {
   type = object({
     bucket    = optional(string)
     base_path = optional(string)
     readonly  = optional(string)
+    container = optional(string)
   })
 }
 

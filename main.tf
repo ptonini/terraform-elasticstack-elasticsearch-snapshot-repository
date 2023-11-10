@@ -1,11 +1,19 @@
 resource "elasticstack_elasticsearch_snapshot_repository" "this" {
   name = var.name
   dynamic "s3" {
-    for_each = var.type == "s3" ? { 0 = var.settings } : {}
+    for_each = var.type == "s3" ? [0] : []
     content {
-      bucket    = s3.value["bucket"]
-      base_path = s3.value["base_path"]
-      readonly  = s3.value["readonly"]
+      bucket    = var.settings.bucket
+      base_path = var.settings.base_path
+      readonly  = var.settings.readonly
+    }
+  }
+  dynamic "azure" {
+    for_each = var.type == "azure" ? [0] : []
+    content {
+      container = var.settings.container
+      base_path = var.settings.base_path
+      readonly  = var.settings.readonly
     }
   }
 }
