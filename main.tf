@@ -1,5 +1,6 @@
 resource "elasticstack_elasticsearch_snapshot_repository" "this" {
   name = var.name
+
   dynamic "s3" {
     for_each = var.type == "s3" ? [0] : []
     content {
@@ -8,6 +9,7 @@ resource "elasticstack_elasticsearch_snapshot_repository" "this" {
       readonly  = var.settings.readonly
     }
   }
+
   dynamic "azure" {
     for_each = var.type == "azure" ? [0] : []
     content {
